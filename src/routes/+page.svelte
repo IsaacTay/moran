@@ -116,13 +116,16 @@
 <section class="grow hero">
 	<div class="flex grow h-full w-full justify-center items-center backdrop-blur-sm">
 		<div class="flex w-full p-10 rounded-3xl justify-center items-center flex-col">
-			<form on:submit|preventDefault={submit} class="form-control w-full max-w-sm">
+			<form on:submit|preventDefault={submit} class="form-control w-full max-w-xl">
 				<label class="label">
 					<span class="label-text text-lg"><strong>Parameters</strong></span>
 				</label>
 				<div class="flex flex-row space-x-3">
 					<div class="input-group input-group-vertical">
-						<span>Temperature</span>
+						<span class="flex flex-row justify-start w-full">
+							Temperature
+							<div class="{error ? "display": "hidden"} text-xs text-error mr-0 ml-auto">({MIN_TEMP} ≤ temp ≤ {MAX_TEMP})</div>
+						</span>
 						<input type="number" placeholder="Input temperature..." class="z-10 input input-bordered w-full {error ? "input-error" : ""} " bind:value={temp} />
 						<span class="btn-group btn-group-horizontal w-full p-0 -mt-2 overflow-clip">
 							<input type="radio" class="btn grow pt-2" on:change={kelvin_trigger} name="temp" data-title="K" value={true} bind:group={use_kelvin} />
