@@ -1,0 +1,35 @@
+@import '@fontsource/fira-mono';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* html, body {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+body {
+  position: relative;
+} */
+
+@layer utilities {
+  .translate-x-screen {
+    --tw-translate-x: 100vw;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    -webkit-transform: translate3d(var(--tw-translate-x), 0, 0);
+  }
+  .-translate-x-screen {
+    --tw-translate-x: -100vw;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    -webkit-transform: translate3d(var(--tw-translate-x), 0, 0);
+  }
+  .translate-x-none {
+    --tw-translate-x: 0;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    -webkit-transform: translate3d(var(--tw-translate-x), 0, 0);
+  }
+
+  .webkit-transition-all {
+    -webkit-transition: all 0.5s ease-in-out;
+  }
+}
