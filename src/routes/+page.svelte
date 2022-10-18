@@ -80,11 +80,11 @@
 			let idx = (temp_kelvin - 200) / 10;
 			let i1 = Math.floor(idx)
 			let i2 = Math.ceil(idx)
-			let dt = data[i2][0] - data[i1][0]
-			let d_temp = temp_kelvin - data[i1][0] / dt
+			let dt = 10
+			let d_temp = temp_kelvin - data[i1][0]
 			let new_answers = Array(5)
 			for (let index = 1; index < data[0].length; index++) {
-				new_answers[index-1] = data[i1][index] + (i1 == i2 ? 0: (data[i2][index] - data[i1][index]) / dt * d_temp)
+				new_answers[index-1] = data[i1][index] + (i1 == i2 ? 0: ((data[i2][index] - data[i1][index]) / dt * d_temp))
 			}
 			answers = new_answers
 		}
