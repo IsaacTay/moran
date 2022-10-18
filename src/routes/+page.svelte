@@ -1,5 +1,8 @@
 <script lang="ts">
 	let error = false
+
+	const MIN_TEMP = 200
+	const MAX_TEMP = 2250
 	
 	const T0 = 237.15
 	let temp = T0
@@ -9,13 +12,13 @@
 	let use_kelvin = true
 	let use_bar = true
 
-	import raw_data from "/src/AirPropertiesTable.csv?raw"
+	import raw_data from "/src/MoranAir.csv?raw"
 	let data = parseCSV(raw_data)
 	let header = data[0]
 	header.shift()
 	normalizeData(data)
 
-	$: error = temp_kelvin < 200 || temp_kelvin > 740
+	$: error = temp_kelvin < MIN_TEMP || temp_kelvin > MAX_TEMP
 
 	function submit() {
 		
@@ -74,17 +77,31 @@
 		return arr;
 	}
 
+	function binarySearch(ar, el) {
+		var m = 0;
+		var n = ar.length - 1;
+		while (m <= n) {
+			var k = (n + m) >> 1;
+			var cmp = el - ar[k];
+			if (cmp > 0) {
+				m = k + 1;
+			} else if(cmp < 0) {
+				n = k - 1;
+			} else {
+				return k;
+			}
+		}
+		return m - 1;
+	}
+
 	let answers: number[] = []
 	$: {
 		if (!error) {
-			let idx = (temp_kelvin - 200) / 10;
-			let i1 = Math.floor(idx)
-			let i2 = Math.ceil(idx)
-			let dt = 10
-			let d_temp = temp_kelvin - data[i1][0]
+			let idx = binarySearch(data.map(x => x[0]), temp_kelvin);
+			let d_temp = temp_kelvin - data[idx][0]
 			let new_answers = Array(5)
 			for (let index = 1; index < data[0].length; index++) {
-				new_answers[index-1] = data[i1][index] + (i1 == i2 ? 0: ((data[i2][index] - data[i1][index]) / dt * d_temp))
+				new_answers[index-1] = data[idx][index] + (temp_kelvin == data[idx][0] ? 0: ((data[idx+1][index] - data[idx][index]) / (data[idx+1][0] - data[idx][0]) * d_temp))
 			}
 			answers = new_answers
 		}
