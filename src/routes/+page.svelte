@@ -77,7 +77,6 @@
 	let answers: number[] = []
 	$: {
 		if (!error) {
-			console.log(temp_kelvin)
 			let idx = (temp_kelvin - 200) / 10;
 			let i1 = Math.floor(idx)
 			let i2 = Math.ceil(idx)

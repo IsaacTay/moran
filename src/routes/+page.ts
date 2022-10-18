@@ -1,3 +1,3 @@
-import { browser, dev } from '$app/env';
+import { browser, dev } from '$app/environment';
 
 export const prerender = true;
