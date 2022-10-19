@@ -105,7 +105,9 @@
 			}
 			answers = new_answers
 		}
-	} 
+	}
+
+	const zip = (a, b) => a.map((k: string, i: number) => ({"name": k, "answer": b[i]}));
 </script>
 
 <svelte:head>
@@ -115,16 +117,16 @@
 
 <section class="grow hero">
 	<div class="flex grow h-full w-full justify-center items-center backdrop-blur-sm">
-		<div class="flex w-full p-10 rounded-3xl justify-center items-center flex-col">
-			<form on:submit|preventDefault={submit} class="form-control w-full max-w-xl">
+		<div class="flex w-full p-10 rounded-3xl justify-center items-center flex-col md:flex-row md:space-x-10 xl:flex-col space-y-5">
+			<form on:submit|preventDefault={submit} class="form-control w-fit">
 				<label class="label">
 					<span class="label-text text-lg"><strong>Parameters</strong></span>
 				</label>
-				<div class="flex flex-row space-x-3">
-					<div class="input-group input-group-vertical">
-						<span class="flex flex-row justify-start w-full">
+				<div class="flex flex-col space-y-3 xl:flex-row xl:space-x-3 xl:space-y-0">
+					<div class="input-group input-group-vertical w-full min-w-max">
+						<span class="flex flex-row justify-start py-1">
 							Temperature
-							<div class="{error ? "display": "hidden"} text-xs text-error mr-0 ml-auto">({MIN_TEMP} ≤ temp ≤ {MAX_TEMP})</div>
+							<div class="{error ? "visible": "invisible"} text-xs text-error mr-0 ml-auto">({MIN_TEMP} ≤ temp ≤ {MAX_TEMP})</div>
 						</span>
 						<input type="number" placeholder="Input temperature..." class="z-10 input input-bordered w-full {error ? "input-error" : ""} " bind:value={temp} />
 						<span class="btn-group btn-group-horizontal w-full p-0 -mt-2 overflow-clip">
@@ -132,8 +134,8 @@
 							<input type="radio" class="btn grow pt-2" on:change={kelvin_trigger} name="temp" data-title="°C" value={false} bind:group={use_kelvin} />
 						</span>
 					</div>
-					<div class="input-group input-group-vertical">
-						<span>Pressure</span>
+					<div class="input-group input-group-vertical w-full min-w-max">
+						<span class="py-1">Pressure</span>
 						<input type="number" placeholder="1" class="z-10 input input-bordered w-full {error ? "input-error" : ""} " bind:value={pressure} />
 						<span class="btn-group btn-group-horizontal w-full p-0 -mt-2 overflow-clip">
 							<input type="radio" class="btn grow pt-2" name="pressure" data-title="bar" bind:group={use_bar} value={true} />
@@ -142,32 +144,25 @@
 					</div>
 				</div>
 			</form>
-			<span class="py-10">
-			<table class="table w-full">
-				<!-- head -->
-				<thead>
-				<tr>
-					{#each header as name}
-						<th>{name}</th>
-					{/each}
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					{#each answers as answer}
-						<td class="w-56">
-							<div class="input-group">
-								<span class="w-full">{Number(answer.toPrecision(10))}</span>
-								<button on:click={() => navigator.clipboard.writeText(Number(answer.toPrecision(10)).toString())} class="{false ? "tooltip tooltip-bottom": ""} btn" data-tip="Copied!">
-									<svg id="i-clipboard" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-4 h-4" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-										<path d="M12 2 L12 6 20 6 20 2 12 2 Z M11 4 L6 4 6 30 26 30 26 4 21 4" />
-									</svg>
-								</button>
-							</div>
-						</td>
-					{/each}
-				</tr>
-			</table>
+			<div class="grid grid-flow-col grid-rows-5 items-center xl:grid-flow-row xl:grid-cols-5 xl:grid-rows-2 gap-3 p-3 rounded-md bg-base-200">
+				{#each header as name}
+					<div class="p-3 w-full h-full text-accent">
+						{name}
+					</div>
+				{/each}
+				{#each answers as answer}
+					<div class="w-56">
+						<div class="input-group">
+							<span class="w-full">{Number(answer.toPrecision(10))}</span>
+							<button on:click={() => navigator.clipboard.writeText(Number(answer.toPrecision(10)).toString())} class="{false ? "tooltip tooltip-bottom": ""} btn" data-tip="Copied!">
+								<svg id="i-clipboard" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-4 h-4" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+									<path d="M12 2 L12 6 20 6 20 2 12 2 Z M11 4 L6 4 6 30 26 30 26 4 21 4" />
+								</svg>
+							</button>
+						</div>
+					</div>
+				{/each}
+			</div>
 		</div>
 	</div>
 	<div class="flex grow h-full items-end">
