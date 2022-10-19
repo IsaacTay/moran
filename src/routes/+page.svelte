@@ -26,7 +26,7 @@
 
 	function kelvin_trigger(event: { currentTarget: { value: string; }; }) {
 		let new_state: boolean = event.currentTarget.value == 'true'
-		temp += new_state ? T0: -T0
+		temp = Number((temp + (new_state ? T0: -T0)).toPrecision(10))
 		use_kelvin = new_state
 	}
 
