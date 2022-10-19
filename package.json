@@ -4,6 +4,8 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
+		"predeploy": "npm run build",
+		"deploy": "node ./gh-pages.js",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
@@ -17,6 +19,7 @@
 		"@tailwindcss/typography": "^0.5.4",
 		"@types/cookie": "^0.5.1",
 		"autoprefixer": "^10.4.8",
+		"gh-pages": "^4.0.0",
 		"postcss": "^8.4.16",
 		"svelte": "^3.46.0",
 		"svelte-check": "^2.7.1",
