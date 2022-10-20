@@ -112,7 +112,7 @@
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Travel reccomendations app" />
+	<meta name="description" content="Moran air properties calculator" />
 </svelte:head>
 
 <section class="grow hero">
