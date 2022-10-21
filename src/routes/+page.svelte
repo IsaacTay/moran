@@ -112,10 +112,10 @@
 <section class="grow hero">
 	<div class="flex grow h-full w-full justify-center items-center backdrop-blur-sm">
 		<div class="flex w-full p-10 rounded-3xl justify-center items-center flex-col md:flex-row md:space-x-10 xl:flex-col space-y-5">
-			<form on:submit|preventDefault class="form-control w-fit">
-				<label class="label">
+			<form on:submit|preventDefault class="form-control w-fit" aria-label="Parameters input">
+				<div class="label">
 					<span class="label-text text-lg"><strong>Parameters</strong></span>
-				</label>
+				</div>
 				<div class="flex flex-col space-y-3 xl:flex-row xl:space-x-3 xl:space-y-0">
 					<div class="input-group input-group-vertical w-full min-w-max">
 						<span class="flex flex-row justify-start py-1">
