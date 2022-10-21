@@ -20,10 +20,6 @@
 
 	$: error = temp_kelvin < MIN_TEMP || temp_kelvin > MAX_TEMP
 
-	function submit() {
-		
-	}
-
 	function kelvin_trigger(event: { currentTarget: { value: string; }; }) {
 		let new_state: boolean = event.currentTarget.value == 'true'
 		temp = Number((temp + (new_state ? T0: -T0)).toPrecision(10))
@@ -106,8 +102,6 @@
 			answers = new_answers
 		}
 	}
-
-	const zip = (a, b) => a.map((k: string, i: number) => ({"name": k, "answer": b[i]}));
 </script>
 
 <svelte:head>
@@ -118,7 +112,7 @@
 <section class="grow hero">
 	<div class="flex grow h-full w-full justify-center items-center backdrop-blur-sm">
 		<div class="flex w-full p-10 rounded-3xl justify-center items-center flex-col md:flex-row md:space-x-10 xl:flex-col space-y-5">
-			<form on:submit|preventDefault={submit} class="form-control w-fit">
+			<form on:submit|preventDefault class="form-control w-fit">
 				<label class="label">
 					<span class="label-text text-lg"><strong>Parameters</strong></span>
 				</label>
